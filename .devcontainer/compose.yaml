@@ -1,0 +1,93 @@
+# https://docs.docker.com/compose/compose-file/#version-top-level-element
+# Compose Specificationではversionを頼りにdocker-composeファイルを解釈してはならない。常に、最新のスキーマで解釈する。
+# なので、versionは非推奨。https://github.com/compose-spec/compose-spec/blob/master/spec.md#compose-file
+# version: "3.8"
+services:
+  code:
+    container_name: ${DEV_ENV_NAME:?err}-code
+    build:
+      context: .
+      dockerfile: code.dockerfile
+    volumes:
+      # consistencyはDocker Desktop for Mac 以外では無視される設定
+      # https://matsuand.github.io/docs.docker.jp.onthefly/storage/bind-mounts/#choose-the--v-or---mount-flag
+      - type: bind
+        source: ..
+        target: /workspace
+        consistency: cached
+      # ホストのaws credentialsディレクトリをマウント
+      - type: bind
+        source: ~/.aws
+        target: /home/ika-musume/.aws
+        consistency: cached
+      # ホストのDocker daemonのソケットをBind Mount
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        consistency: cached
+      # コンテナをリビルドした後にvscode extensionsの再インストールを抑止してvscode起動時間を短縮
+      # https://code.visualstudio.com/remote/advancedcontainers/avoid-extension-reinstalls
+      # VS Code
+      - type: volume
+        source: vscode-server-extensions
+        target: /home/ika-musume/.vscode-server/extensions
+        consistency: delegated
+    # command: "/bin/bash"
+    tty: true
+    ports:
+      - "3000:3000"
+      # - "3001:3001"
+      # - "3002:3002"
+      # - "3120:3120"
+      # - "5500:5500"
+      # - "3500:3500"
+      # - "3501:3501"
+      # - "8001:8000"
+    environment:
+      TZ: Asia/Tokyo
+
+  # mysql:
+  #   container_name: ${DEV_ENV_NAME:?err}-mysql
+  #   build:
+  #     context: .
+  #     dockerfile: mysql.dockerfile
+  #   volumes:
+  #     - mysql-volume:/var/lib/mysql
+  #   ports:
+  #     - 3307:3306
+  #   environment:
+  #     # TODO: シークレットにしたい値はどうする？
+  #     MYSQL_ROOT_PASSWORD: my-secret-pw
+
+  # swagger-editor:
+  #   container_name: "swagger-editor"
+  #   image: swaggerapi/swagger-editor:v3.11.7
+  #   environment:
+  #     SWAGGER_FILE: /web-api/api-spec.yaml
+  #   volumes:
+  #     - type: bind
+  #       source: ../server/services/web-api
+  #       target: /web-api
+  #       read_only: true
+  #       consistency: cached
+  #   ports:
+  #     - "3111:8080"
+  # swagger-ui:
+  #   container_name: "swagger-ui"
+  #   image: swaggerapi/swagger-ui:v3.31.1
+  #   environment:
+  #     SWAGGER_JSON: /web-api/api-spec.yaml
+  #   volumes:
+  #     - type: bind
+  #       source: ../server/services/web-api
+  #       target: /web-api
+  #       read_only: true
+  #       consistency: cached
+  #   ports:
+  #     - "3110:8080"
+
+volumes:
+  vscode-server-extensions:
+    name: ${DEV_ENV_NAME:?err}_vscode-server-extensions
+  # mysql-volume:
+  #   name: ${DEV_ENV_NAME:?err}_mysql-volume

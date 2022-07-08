@@ -1,0 +1,62 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.122.1/containers/docker-from-docker-compose
+// If you want to run as a non-root user in the container, see .devcontainer/docker-compose.yml.
+{
+  "name": "${localWorkspaceFolderBasename}",
+  "dockerComposeFile": "compose.yaml",
+  "service": "code",
+  "workspaceFolder": "/workspace",
+  "remoteUser": "ika-musume",
+  "remoteEnv": {
+    "PYTHONPATH": "/workspace/server/services/web-api/external-resources/python:/workspace/server/services/web-api:${containerEnv:PYTHONPATH}"
+  },
+  // Set *default* container specific settings.json values on container create.
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash (login)",
+    "terminal.integrated.profiles.linux": {
+      "bash (login)": {
+        "path": "/bin/bash",
+        "args": ["--login"],
+        "overrideName": false,
+        "icon": "terminal"
+      }
+    }
+  },
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": [
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "visualstudioexptteam.vscodeintellicode",
+    "mhutchie.git-graph",
+    "eamodio.gitlens",
+    "github.vscode-pull-request-github",
+    "compulim.vscode-clock",
+    "mushan.vscode-paste-image",
+    "aws-scripting-guy.cform",
+    "joaompinto.asciidoctor-vscode",
+    "esbenp.prettier-vscode",
+    "msjsdiag.debugger-for-chrome",
+    "redhat.vscode-yaml",
+    "oderwat.indent-rainbow",
+    "mosapride.zenkaku",
+    "ionutvmi.path-autocomplete",
+    "humao.rest-client",
+    "mechatroner.rainbow-csv",
+    "MS-vsliveshare.vsliveshare",
+    "Gruntfuggly.todo-tree",
+    "hediet.vscode-drawio",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "kddejong.vscode-cfn-lint",
+    "ritwickdey.liveserver",
+    "wmaurer.change-case"
+  ]
+  // "forwardPorts": [3000, 3001, 3002]
+  // Uncomment the next line if you want start specific services in your Docker Compose config.
+  // "runServices": [],
+  // Uncomment the next line if you want to keep your containers running after VS Code shuts down.
+  // "shutdownAction": "none",
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": "docker --version",
+  // Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+}
