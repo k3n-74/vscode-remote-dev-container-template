@@ -118,6 +118,7 @@ RUN set -xeu \
     && echo 'eval "$(pyenv init -)"' >> /home/${USERNAME}/.profile
 # pythonとPoetryをインストール
 ARG DEFAULT_PYTHON_VERSION="3.9.13"
+ARG POETRY_VERSION="1.2.0"
 RUN set -xeu \
     # pyenv を有効化するためのおまじない
     && export PYENV_ROOT="/home/${USERNAME}/.pyenv" \
@@ -127,7 +128,7 @@ RUN set -xeu \
     && pyenv install ${DEFAULT_PYTHON_VERSION} \
     && pyenv global ${DEFAULT_PYTHON_VERSION} \
     # Poetryをインストールする
-    && curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+    && curl -sSL https://install.python-poetry.org | python3 - --version ${POETRY_VERSION}
 
 
 ############
