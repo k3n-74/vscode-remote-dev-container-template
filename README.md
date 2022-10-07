@@ -17,7 +17,7 @@ vscode dev container のひな型。
 
 ## 🚀 docker ( サブコマンドになった compose も含む )
 
-- `docker in docker` ではなく `docker outside of docker` でセットアップしてある。
+- `docker outside of docker` でセットアップしてある ( `docker in docker` ではない )。
 
 ## 🚀 AWS
 
