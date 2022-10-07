@@ -1,5 +1,6 @@
 vscode dev container のひな型。  
-内容は下記の通り。
+概要は下記の通り。  
+詳しくは `.devcontainer` を参照。
 
 ## 🚀 ベースイメージ
 
