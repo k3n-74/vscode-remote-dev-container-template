@@ -251,29 +251,29 @@ RUN set -xeu \
 # # 下記は動作確認済みのスクリプトなので、今後必要になった時に利用可能。
 # # ############
 
-# RUN set -xeu \
-#     && cd /tmp \
-#     && sudo apt-get update \
-#     && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" \
-#     # ~/.linuxbreは無いからコメントアウト。余談だがこいつの実行にはpsコマンドが必要だからprocpsをapt-get installする必要あり。
-#     # && test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv) \
-#     # /home/linuxbrew/.linuxbrewはある。ただし、この時点で存在しない環境変数($INFOPATH)にアクセスする処理がある。
-#     && set +u \
-#     && test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv) \
-#     && set -u \
-#     # ~/.bash_profileは無いからコメントアウト
-#     # && test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile \
-#     && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> ~/.profile \
-#     && brew --version
+RUN set -xeu \
+    && cd /tmp \
+    && sudo apt-get update \
+    && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" \
+    # ~/.linuxbreは無いからコメントアウト。余談だがこいつの実行にはpsコマンドが必要だからprocpsをapt-get installする必要あり。
+    # && test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv) \
+    # /home/linuxbrew/.linuxbrewはある。ただし、この時点で存在しない環境変数($INFOPATH)にアクセスする処理がある。
+    && set +u \
+    && test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv) \
+    && set -u \
+    # ~/.bash_profileは無いからコメントアウト
+    # && test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile \
+    && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> ~/.profile \
+    && brew --version
 
-# # homebrewでインストールするときの例。cowsayをインストールしてみる。
-# RUN set -xeu \
-#     # docker build中はbrewコマンドを利用可能な状態にするために下記３行のコマンド実行が必要
-#     && set +u \
-#     && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv) \
-#     && set -u \
-#     # cowsayをインストール
-#     && brew install cowsay
+# homebrewでインストールするときの例。lazydockerをインストールする。
+RUN set -xeu \
+    # docker build中はbrewコマンドを利用可能な状態にするために下記３行のコマンド実行が必要
+    && set +u \
+    && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv) \
+    && set -u \
+    # lazydocker をインストール
+    && brew install lazydocker
 
 
 
