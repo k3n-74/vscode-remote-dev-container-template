@@ -12,6 +12,7 @@
   },
   // Set *default* container specific settings.json values on container create.
   "settings": {
+    "terminal.integrated.shellIntegration.enabled": false,
     "terminal.integrated.defaultProfile.linux": "bash (login)",
     "terminal.integrated.profiles.linux": {
       "bash (login)": {

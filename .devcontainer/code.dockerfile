@@ -391,6 +391,14 @@ RUN set -xeu \
 #     } >> /home/${USERNAME}/.profile
 
 
+###########
+# vscode shell integration の manual installation
+# https://code.visualstudio.com/docs/terminal/shell-integration#_manual-installation
+###########
+RUN set -xeu \
+    && echo '[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path bash)"' >> /home/${USERNAME}/.profile
+
+
 EXPOSE 3000
 # EXPOSE 3000 3001 3002 3120 3500 3501 8000
 
